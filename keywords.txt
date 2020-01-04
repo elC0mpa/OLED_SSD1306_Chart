@@ -1,0 +1,30 @@
+#######################################
+# Syntax Coloring Map For Adafruit_SSD1306_Chart
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Adafruit_SSD1306_Chart	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+setChartCoordinates	KEYWORD2
+setChartWidthAndHeight	KEYWORD2
+setXIncrement		KEYWORD2
+setYLimits		KEYWORD2
+setAxisDivisionsInc	KEYWORD2
+setPlotMode		KEYWORD2
+drawChart		KEYWORD2
+updateChart		KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+#######################################
+# Constants (LITERAL1)
+#######################################
