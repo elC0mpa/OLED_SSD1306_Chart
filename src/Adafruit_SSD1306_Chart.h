@@ -1,4 +1,5 @@
 #include <Adafruit_SSD1306.h>
+#include <Wire.h>
 
 #define SINGLE_PLOT_MODE 0
 #define DOUBLE_PLOT_MODE 1
@@ -6,10 +7,10 @@
 class Adafruit_SSD1306_Chart:public Adafruit_SSD1306
 {
 private:
-    double _ox[2], _oy[2];            //Previous point coordinates
+    double _ox[2], _oy[2];      //Previous point coordinates
     double _gx, _gy;            //Chart lower left coordinates
     double _w, _h;              //Chart width and height
-    double _ylo[2], _yhi[2];          //Y axis Min and max values
+    double _ylo[2], _yhi[2];    //Y axis Min and max values
     double _xinc;               //X coordinate increment between values
     double _x;                  //Actual point x coordinate
     double _xincdiv, _yincdiv;  //X and Y axis distance between division
@@ -20,7 +21,7 @@ public:
     //Ctors
     Adafruit_SSD1306_Chart():Adafruit_SSD1306(){_mode = SINGLE_PLOT_MODE;}
 
-    Adafruit_SSD1306_Chart(uint8_t w, uint8_t h, SlowSoftWire *twi, int8_t rst_pin=-1,
+    Adafruit_SSD1306_Chart(uint8_t w, uint8_t h, TwoWire *twi, int8_t rst_pin=-1,
         uint32_t clkDuring=400000UL, uint32_t clkAfter=100000UL):Adafruit_SSD1306(w, h, twi, rst_pin, clkDuring, clkAfter){_mode = SINGLE_PLOT_MODE;}
 
     Adafruit_SSD1306_Chart(uint8_t w, uint8_t h, int8_t mosi_pin, int8_t sclk_pin,
