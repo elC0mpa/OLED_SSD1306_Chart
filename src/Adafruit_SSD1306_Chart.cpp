@@ -41,7 +41,7 @@ void Adafruit_SSD1306_Chart::drawChart()
 
 void Adafruit_SSD1306_Chart::setPlotMode(char mode)
 {
-    if (mode == SINGLE_MODE || mode == DOUBLE_MODE)
+    if (mode == SINGLE_PLOT_MODE || mode == DOUBLE_PLOT_MODE)
         _mode = mode;
 }
 
@@ -85,7 +85,7 @@ bool Adafruit_SSD1306_Chart::updateChart(double firstValue, double secondValue)
     _x+=_xinc;
 
     
-    if (_mode == SINGLE_MODE)
+    if (_mode == SINGLE_PLOT_MODE)
     {
         double y =  (firstValue - _ylo[0]) * (_gy - _h - _gy) / (_yhi[0] - _ylo[0]) + _gy;
         drawLine(_ox[0], _oy[0], _x, y, WHITE);
@@ -100,7 +100,7 @@ bool Adafruit_SSD1306_Chart::updateChart(double firstValue, double secondValue)
         return true;
     }
 
-    else if(_mode == DOUBLE_MODE)
+    else if(_mode == DOUBLE_PLOT_MODE)
     {
         auto semiHeight = _h / 2;
         double y =  (firstValue - _ylo[0]) * (- semiHeight) / (_yhi[0] - _ylo[0]) + _gy;
