@@ -100,7 +100,7 @@ bool OLED_SSD1306_Chart::updateChart(double firstValue, double secondValue)
         return true;
     }
 
-    else if(_mode == DOUBLE_PLOT_MODE)
+    else 
     {
         auto semiHeight = _h / 2;
         double y =  (firstValue - _ylo[0]) * (- semiHeight) / (_yhi[0] - _ylo[0]) + _gy;
