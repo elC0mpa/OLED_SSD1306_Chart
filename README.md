@@ -1,4 +1,4 @@
-# Adafruit_SSD1306_Chart
+# OLED_SSD1306_Chart
 
 Arduino library to **easily draw cartesian charts** in oled displays based on the SSD1306 drivers.
 
@@ -24,16 +24,16 @@ This library is compatible with any oled display which is compatible with [Adafr
 ### **Include the library**
 
 ``` c++
-#include <Adafruit_SSD1306_Chart.h>
+#include <OLED_SSD1306_Chart.h>
 ```
 
 ### **Create an instance of the class**
 
-Create an instance of `Adafruit_SSD1306_Chart` class for each oled display in which you would like to draw a cartesian chart. These objects constructors and [Adafruit_SSD1306](https://github.com/adafruit/Adafruit_SSD1306) objects constructors are the same. In this documentation will be explained only the I2C constructor.
+Create an instance of `OLED_SSD1306_Chart` class for each oled display in which you would like to draw a cartesian chart. These objects constructors and [Adafruit_SSD1306](https://github.com/adafruit/Adafruit_SSD1306) objects constructors are the same. In this documentation will be explained only the I2C constructor.
 
 ```c++
 // Adafruit_SSD1306_Chart instance
-Adafruit_SSD1306_Chart display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+OLED_SSD1306_Chart display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 ```
 
 The class constructor takes the following arguments:
@@ -48,7 +48,7 @@ The class constructor takes the following arguments:
 
 ```c++
 // Adafruit_SSD1306_Chart class's constructor signature
-Adafruit_SSD1306_Chart(uint8_t w, uint8_t h, TwoWire *twi, int8_t rst_pin=-1,
+OLED_SSD1306_Chart(uint8_t w, uint8_t h, TwoWire *twi, int8_t rst_pin=-1,
         uint32_t clkDuring=400000UL, uint32_t clkAfter=100000UL)
 ```
 
@@ -88,8 +88,6 @@ The function `setYLimits` defines the minium and maxium Y values to each chart. 
 ```c++
 // Set plot mode
 display.setPlotMode(char mode);
-#define SINGLE_PLOT_MODE 0
-#define DOUBLE_PLOT_MODE 1
 ```
 The function `setPlotMode` is used to configure if the chart will draw one or two cartesian charts 
 
@@ -118,9 +116,9 @@ The function `updateChart` is used to add new Y values to the chart. When workin
 
   ## Examples
 
-  [SinglePlotMode](https://github.com/elC0mpa/Adafruit_SSD1306_Chart/blob/master/examples/SinglePlotMode/SinglePlotMode.ino)
+  [SinglePlotMode](https://github.com/elC0mpa/OLED_SSD1306_Chart/blob/master/examples/SinglePlotMode/SinglePlotMode.ino)
 
-  [DoublePlotMode](https://github.com/elC0mpa/Adafruit_SSD1306_Chart/blob/master/examples/DoublePlotMode/DoublePlotMode.ino)
+  [DoublePlotMode](https://github.com/elC0mpa/OLED_SSD1306_Chart/blob/master/examples/DoublePlotMode/DoublePlotMode.ino)
 
 ## Copyright
 

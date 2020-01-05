@@ -1,11 +1,11 @@
-#include "Adafruit_SSD1306_Chart.h"
+#include "OLED_SSD1306_Chart.h"
 
 /*!
     @brief  Updates the internal buffer to draw the cartesian graph
     @note   Call the object's begin() function before use -- buffer allocation is performed there!
             Call the object's configureChart() function before use -- params are updated there
 */
-void Adafruit_SSD1306_Chart::drawChart()
+void OLED_SSD1306_Chart::drawChart()
 {
     double i, temp;
     _dig = 0;
@@ -39,13 +39,13 @@ void Adafruit_SSD1306_Chart::drawChart()
     }
 }
 
-void Adafruit_SSD1306_Chart::setPlotMode(char mode)
+void OLED_SSD1306_Chart::setPlotMode(char mode)
 {
     if (mode == SINGLE_PLOT_MODE || mode == DOUBLE_PLOT_MODE)
         _mode = mode;
 }
 
-void Adafruit_SSD1306_Chart::setYLimits(double ylo, double yhi, uint8_t chart)
+void OLED_SSD1306_Chart::setYLimits(double ylo, double yhi, uint8_t chart)
 {
     if(chart == 0 || chart == 1)
     {
@@ -54,30 +54,30 @@ void Adafruit_SSD1306_Chart::setYLimits(double ylo, double yhi, uint8_t chart)
     }
 }
 
-void Adafruit_SSD1306_Chart::setChartCoordinates(double x, double y)
+void OLED_SSD1306_Chart::setChartCoordinates(double x, double y)
 {
     _gx = x;
     _gy = y;
 }
 
-void Adafruit_SSD1306_Chart::setChartWidthAndHeight(double w, double h)
+void OLED_SSD1306_Chart::setChartWidthAndHeight(double w, double h)
 {
     _w = w;
     _h = h;
 }
 
-void Adafruit_SSD1306_Chart::setAxisDivisionsInc(double xinc, double yinc)
+void OLED_SSD1306_Chart::setAxisDivisionsInc(double xinc, double yinc)
 {
     _xincdiv = xinc;
     _yincdiv = yinc;
 }
 
-void Adafruit_SSD1306_Chart::setXIncrement(double xinc)
+void OLED_SSD1306_Chart::setXIncrement(double xinc)
 {
     _xinc = xinc;
 }
 
-bool Adafruit_SSD1306_Chart::updateChart(double firstValue, double secondValue)
+bool OLED_SSD1306_Chart::updateChart(double firstValue, double secondValue)
 {
     if (_x >= _gx + _w)
         return false;
