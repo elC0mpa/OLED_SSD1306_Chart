@@ -32,7 +32,7 @@ This library is compatible with any oled display which is compatible with [Adafr
 Create an instance of `OLED_SSD1306_Chart` class for each oled display in which you would like to draw a cartesian chart. These objects constructors and [Adafruit_SSD1306](https://github.com/adafruit/Adafruit_SSD1306) objects constructors are the same. In this documentation will be explained only the I2C constructor.
 
 ```c++
-// Adafruit_SSD1306_Chart instance
+// OLED_SSD1306_Chart instance
 OLED_SSD1306_Chart display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 ```
 
@@ -47,7 +47,7 @@ The class constructor takes the following arguments:
 
 
 ```c++
-// Adafruit_SSD1306_Chart class's constructor signature
+// OLED_SSD1306_Chart class's constructor signature
 OLED_SSD1306_Chart(uint8_t w, uint8_t h, TwoWire *twi, int8_t rst_pin=-1,
         uint32_t clkDuring=400000UL, uint32_t clkAfter=100000UL)
 ```
