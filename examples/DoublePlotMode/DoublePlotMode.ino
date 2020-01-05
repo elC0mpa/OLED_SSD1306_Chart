@@ -6,7 +6,7 @@
 */
 
 #include <Arduino.h>
-#include <Adafruit_SSD1306_Chart.h>
+#include <OLED_SSD1306_Chart.h>
 
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
@@ -20,7 +20,7 @@
 #define SCL_PIN D2
 
 
-Adafruit_SSD1306_Chart display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+OLED_SSD1306_Chart display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 void setup() {
   // put your setup code here, to run once:
@@ -36,12 +36,11 @@ void setup() {
   display.setChartWidthAndHeight(123, 60);    //Chart width = 123 and height = 60
   display.setXIncrement(5);                   //Distance between Y points will be 5px
   display.setYLimits(0, 100);                 //Ymin = 0 and Ymax = 100 for first chart
-  display.setYLimits(0, 100, 1);               //Ymin = 0 and Ymax = 100 for second chart
+  display.setYLimits(0, 100, 1);              //Ymin = 0 and Ymax = 100 for second chart
   display.setAxisDivisionsInc(12, 6);         //Each 12 px a division will be painted in X axis and each 6px in Y axis
   display.setPlotMode(DOUBLE_PLOT_MODE);      //Set double plot mode
   display.drawChart();                        //Update the buffer to draw the cartesian chart 
   display.display();
-
 }
 
 void loop() {
@@ -49,7 +48,7 @@ void loop() {
   auto value = random(100);
   if(!display.updateChart(value, value))   //Value between Ymin and Ymax will be added to chart
     {
-      display.clearDisplay();                         //If chart is full, it is drawn again
+      display.clearDisplay();              //If chart is full, it is drawn again
       display.drawChart();
     }
 }

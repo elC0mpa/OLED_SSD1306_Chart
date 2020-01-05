@@ -6,7 +6,7 @@
 */
 
 #include <Arduino.h>
-#include <Adafruit_SSD1306_Chart.h>
+#include <OLED_SSD1306_Chart.h>
 
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
@@ -19,7 +19,7 @@
 #define SDA_PIN D1
 #define SCL_PIN D2
 
-Adafruit_SSD1306_Chart display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+OLED_SSD1306_Chart display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
  
 void setup() {
   // put your setup code here, to run once:
