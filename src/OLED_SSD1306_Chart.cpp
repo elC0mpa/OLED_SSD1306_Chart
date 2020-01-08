@@ -100,7 +100,8 @@ bool OLED_SSD1306_Chart::updateChart(double firstValue, double secondValue)
         _ox[0] = _x;
         _oy[0] = y;
 
-        fillCircle(_ox[0], _oy[0], 2, WHITE);
+        if(_point_geometry[0] == POINT_GEOMETRY_CIRCLE)
+            fillCircle(_ox[0], _oy[0], 2, WHITE);
         
         display();
         return true;
@@ -123,8 +124,10 @@ bool OLED_SSD1306_Chart::updateChart(double firstValue, double secondValue)
         _ox[1] = _x;
         _oy[1] = secondY;
 
-        fillCircle(_ox[0], _oy[0], 2, WHITE);
-        fillCircle(_ox[1], _oy[1], 2, WHITE);
+        if(_point_geometry[0] == POINT_GEOMETRY_CIRCLE)
+            fillCircle(_ox[0], _oy[0], 2, WHITE);
+        if(_point_geometry[1] == POINT_GEOMETRY_CIRCLE)
+            fillCircle(_ox[1], _oy[1], 2, WHITE);
 
         display();
         return true;
