@@ -3,6 +3,10 @@
 
 #define SINGLE_PLOT_MODE 0
 #define DOUBLE_PLOT_MODE 1
+#define POINT_GEOMETRY_NONE 2
+#define POINT_GEOMETRY_CIRCLE 3
+#define POINT_GEOMETRY_SQUARE 4
+#define POINT_GEOMETRY_TRIANGLE 5
 
 class OLED_SSD1306_Chart:public Adafruit_SSD1306
 {
@@ -16,6 +20,7 @@ private:
     double _xincdiv, _yincdiv;  //X and Y axis distance between division
     double _dig;                
     char _mode;                 //Plot mode: single or double
+    char _point_geometry[2];    //Point geometry
 public:
 
     //Ctors
@@ -34,6 +39,7 @@ public:
     void setChartCoordinates(double x, double y);
     void setChartWidthAndHeight(double w, double h);
     void setYLimits(double ylo, double yhi, uint8_t chart = 0);
+    void setPointGeometry(char pointGeometry, uint8_t chart = 0); 
     void setXIncrement(double xinc);
     void setAxisDivisionsInc(double xinc, double yinc);
 

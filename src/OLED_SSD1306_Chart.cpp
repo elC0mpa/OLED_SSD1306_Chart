@@ -54,6 +54,12 @@ void OLED_SSD1306_Chart::setYLimits(double ylo, double yhi, uint8_t chart)
     }
 }
 
+void OLED_SSD1306_Chart::setPointGeometry(char pointGeometry, uint8_t chart)
+{
+    if(chart == 0 || chart == 1)
+        _point_geometry[chart] = pointGeometry;
+}
+
 void OLED_SSD1306_Chart::setChartCoordinates(double x, double y)
 {
     _gx = x;
