@@ -86,6 +86,12 @@ display.setYLimits(double ylo, double yhi, uint8_t chart = 0);
 The function `setYLimits` defines the minium and maxium Y values to each chart. When working in single plot mode just pass two first parameters. 
 
 ```c++
+// Set point geometry for each chart
+display.setPointGeometry(char pointGeometry, uint8_t chart = 0);
+```
+The function `setPointGeometry` defines a geometric shape to show in each point. Right now the only options are `POINT_GEOMETRY_NONE` and `POINT_GEOMETRY_CIRCLE`. 
+
+```c++
 // Set plot mode
 display.setPlotMode(char mode);
 ```
@@ -114,6 +120,9 @@ display.updateChart(double firstValue, double secondValue = 0);
 ```
 The function `updateChart` is used to add new Y values to the chart. When working on single mode, only `firstValue` is needed. This function returns false when all X points have been used.  
 
+  ## Changelog  
+  - **v1.0.0 (2020/01/05)** - library initial release
+    
   ## Examples
 
   [SinglePlotMode](https://github.com/elC0mpa/OLED_SSD1306_Chart/blob/master/examples/SinglePlotMode/SinglePlotMode.ino)
