@@ -122,6 +122,7 @@ The function `updateChart` is used to add new Y values to the chart. When workin
 
   ## Changelog  
   - **v1.0.0 (2020/01/05)** - library initial release
+  - **v1.1.0 (2020/03/21)** - added implementation for POINT_GEOMETRY_CIRCLE
     
   ## Examples
 
