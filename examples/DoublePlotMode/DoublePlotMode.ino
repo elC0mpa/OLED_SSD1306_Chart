@@ -37,6 +37,7 @@ void setup() {
   display.setXIncrement(5);                   //Distance between Y points will be 5px
   display.setYLimits(0, 100);                 //Ymin = 0 and Ymax = 100 for first chart
   display.setYLimits(0, 100, 1);              //Ymin = 0 and Ymax = 100 for second chart
+  display.setPointGeometry(POINT_GEOMETRY_CIRCLE, 1); //Points will be circles for second chart
   display.setAxisDivisionsInc(12, 6);         //Each 12 px a division will be painted in X axis and each 6px in Y axis
   display.setPlotMode(DOUBLE_PLOT_MODE);      //Set double plot mode
   display.drawChart();                        //Update the buffer to draw the cartesian chart 
