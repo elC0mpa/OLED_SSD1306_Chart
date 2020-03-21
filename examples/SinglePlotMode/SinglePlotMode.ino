@@ -26,7 +26,7 @@ void setup() {
   #if defined ESP8266
   Wire.begin(SDA_PIN, SCL_PIN);
   #else
-  Wire.bein();
+  Wire.begin();
   #endif
 
   display.begin(SSD1306_SWITCHCAPVCC, 0x3c);
