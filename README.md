@@ -2,7 +2,7 @@
 
 Arduino library to **easily draw cartesian charts** in oled displays based on the SSD1306 drivers.
 
-![](LineChart.gif)
+![](Demo.gif)
 
 ## What is it for?
 
