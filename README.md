@@ -86,6 +86,20 @@ display.setYLimits(double ylo, double yhi, uint8_t chart = 0);
 The function `setYLimits` defines the minium and maxium Y values to each chart. When working in single plot mode just pass two first parameters. 
 
 ```c++
+// Sets the visibility of the Y axis labels
+void setYLabelsVisible(bool yLabelsVisible);
+```
+The function `setYLabelsVisible` defines if the Y axis labels should be displayed. This will reduce the drawable area by the width of the labels defined in `setYLimitLabels`.
+
+```c++
+// Sets the textual labels for the y axis limits.
+void setYLimitLabels(char* loLabel, char* hiLabel)
+```
+The function `setYLimitLabels` sets the textual labels that will be displayed at the upper and lower limits defined by `setYLimits`. The labels will only be displayed if their visibility is enabled via `setYLabelsVisible(true)`.
+
+
+
+```c++
 // Set point geometry for each chart
 display.setPointGeometry(char pointGeometry, uint8_t chart = 0);
 ```
