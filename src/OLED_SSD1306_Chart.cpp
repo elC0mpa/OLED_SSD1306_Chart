@@ -12,31 +12,75 @@ void OLED_SSD1306_Chart::drawChart()
     _ox[0] = _gx;
     _ox[1] = _gx;
     _oy[0] = _gy;
-    _oy[1] = _gy + _h/2;
+    _oy[1] = _gy + _h / 2;
     _x = _gx;
+    _xDrawingOffset = 0;
+    
+
+    if(_yLabelsVisible){
+        int16_t x, y;
+        uint16_t w, h;
+
+        setTextSize(1);
+        setTextColor(WHITE);
 
 
-    for (i = _gy; i <= _gy + _h; i += _yincdiv) {
-    temp =  (i - _gy) * (_gy - _h - _gy) / (_h ) + _gy;
-    if (i == _gy)
-    {
-        drawFastHLine(_gx - 3, temp, _w + 3, WHITE);
-    } 
-    else 
-    {
-        drawFastHLine(_gx - 3, temp, 3, WHITE);
+        getTextBounds(_yLabelHi, _gx + 5, _gy + 5 - _h, &x, &y, &w, &h);
+        _xDrawingOffset = w;
+
+        // high label
+        setCursor(_gx, _gy  - _h  -(h/2));
+        write(_yLabelHi);
+
+        getTextBounds(_yLabelLo, _gx + 5, _gy - 5, &x, &y, &w, &h);
+
+        // low label
+        setCursor(_gx, _gy - (h/2));
+        write(_yLabelLo);
+
+        
+
+        
+
+        if (w > _xDrawingOffset)
+        {
+            _xDrawingOffset = w;
+        }
+
+        // compensation for the y axis tick lines
+        _xDrawingOffset+=4;
     }
+
+    
+    
+
+    for (i = _gy; i <= _gy + _h; i += _yincdiv)
+    {
+        temp = (i - _gy) * (_gy - _h - _gy) / (_h) + _gy;
+        if (i == _gy)
+        {
+            drawFastHLine(_gx - 3 + _xDrawingOffset, temp, _w + 3 -_xDrawingOffset, WHITE);
+        }
+        else
+        {
+            drawFastHLine(_gx - 3 + _xDrawingOffset, temp, 3, WHITE);
+        }
     }
     // draw x scale
-    for (i = 0; i <= _w; i += _xincdiv) {
-    temp =  (i) + _gx;
-    if (i == 0) {
-        drawFastVLine(temp, _gy - _h, _h + 3, WHITE);
+    for (i = 0; i <= _w - _xDrawingOffset; i += _xincdiv)
+    {
+        temp = (i) + _gx + _xDrawingOffset;
+        if (i == 0)
+        {
+            drawFastVLine(temp, _gy - _h, _h + 3, WHITE);
+        }
+        else
+        {
+            drawFastVLine(temp, _gy, 3, WHITE);
+        }
     }
-    else {
-        drawFastVLine(temp, _gy, 3, WHITE);
-    }
-    }
+
+    
 }
 
 void OLED_SSD1306_Chart::setPlotMode(char mode)
@@ -47,16 +91,28 @@ void OLED_SSD1306_Chart::setPlotMode(char mode)
 
 void OLED_SSD1306_Chart::setYLimits(double ylo, double yhi, uint8_t chart)
 {
-    if(chart == 0 || chart == 1)
+    if (chart == 0 || chart == 1)
     {
         _ylo[chart] = ylo;
         _yhi[chart] = yhi;
     }
 }
 
+
+void OLED_SSD1306_Chart::setYLimitLabels(char *loLabel, char *hiLabel)
+{
+    _yLabelLo = loLabel;
+    _yLabelHi = hiLabel;
+}
+
+void OLED_SSD1306_Chart::setYLabelsVisible(bool yLabelsVisible)
+{
+    _yLabelsVisible = yLabelsVisible;
+}
+
 void OLED_SSD1306_Chart::setPointGeometry(char pointGeometry, uint8_t chart)
 {
-    if(chart == 0 || chart == 1)
+    if (chart == 0 || chart == 1)
         _point_geometry[chart] = pointGeometry;
 }
 
@@ -85,49 +141,48 @@ void OLED_SSD1306_Chart::setXIncrement(double xinc)
 
 bool OLED_SSD1306_Chart::updateChart(double firstValue, double secondValue)
 {
-    if (_x >= _gx + _w)
+    if (_x >= _gx + _w - _xDrawingOffset)
         return false;
 
-    _x+=_xinc;
+    _x += _xinc;
 
-    
     if (_mode == SINGLE_PLOT_MODE)
     {
-        double y =  (firstValue - _ylo[0]) * (_gy - _h - _gy) / (_yhi[0] - _ylo[0]) + _gy;
-        drawLine(_ox[0], _oy[0], _x, y, WHITE);
-        drawLine(_ox[0], _oy[0] - 1, _x, y - 1, WHITE); 
+        double y = (firstValue - _ylo[0]) * (_gy - _h - _gy) / (_yhi[0] - _ylo[0]) + _gy;
+        drawLine(_ox[0] + _xDrawingOffset, _oy[0], _x + _xDrawingOffset, y, WHITE);
+        drawLine(_ox[0] + _xDrawingOffset, _oy[0] - 1, _x + _xDrawingOffset, y - 1, WHITE);
 
         _ox[0] = _x;
         _oy[0] = y;
 
-        if(_point_geometry[0] == POINT_GEOMETRY_CIRCLE)
-            fillCircle(_ox[0], _oy[0], 2, WHITE);
-        
+        if (_point_geometry[0] == POINT_GEOMETRY_CIRCLE)
+            fillCircle(_ox[0] + _xDrawingOffset, _oy[0], 2, WHITE);
+
         display();
         return true;
     }
 
-    else 
+    else
     {
         auto semiHeight = _h / 2;
-        double y =  (firstValue - _ylo[0]) * (- semiHeight) / (_yhi[0] - _ylo[0]) + _gy;
-        double secondY = (secondValue - _ylo[1]) * (- semiHeight ) / (_yhi[0] - _ylo[0]) + _gy - semiHeight; 
+        double y = (firstValue - _ylo[0]) * (-semiHeight) / (_yhi[0] - _ylo[0]) + _gy;
+        double secondY = (secondValue - _ylo[1]) * (-semiHeight) / (_yhi[0] - _ylo[0]) + _gy - semiHeight;
 
-        drawLine(_ox[0], _oy[0], _x, y, WHITE);
-        drawLine(_ox[0], _oy[0] - 1, _x, y - 1, WHITE); 
+        drawLine(_ox[0] + _xDrawingOffset, _oy[0], _x + _xDrawingOffset, y, WHITE);
+        drawLine(_ox[0] + _xDrawingOffset, _oy[0] - 1, _x + _xDrawingOffset, y - 1, WHITE);
 
-        drawLine(_ox[1], _oy[1], _x, secondY, WHITE);
-        drawLine(_ox[1], _oy[1] - 1, _x, secondY - 1, WHITE); 
+        drawLine(_ox[1] + _xDrawingOffset, _oy[1], _x + _xDrawingOffset, secondY, WHITE);
+        drawLine(_ox[1] + _xDrawingOffset, _oy[1] - 1, _x +_xDrawingOffset, secondY - 1, WHITE);
 
         _ox[0] = _x;
         _oy[0] = y;
         _ox[1] = _x;
         _oy[1] = secondY;
 
-        if(_point_geometry[0] == POINT_GEOMETRY_CIRCLE)
-            fillCircle(_ox[0], _oy[0], 2, WHITE);
-        if(_point_geometry[1] == POINT_GEOMETRY_CIRCLE)
-            fillCircle(_ox[1], _oy[1], 2, WHITE);
+        if (_point_geometry[0] == POINT_GEOMETRY_CIRCLE)
+            fillCircle(_ox[0] + _xDrawingOffset, _oy[0], 2, WHITE);
+        if (_point_geometry[1] == POINT_GEOMETRY_CIRCLE)
+            fillCircle(_ox[1] + _xDrawingOffset, _oy[1], 2, WHITE);
 
         display();
         return true;

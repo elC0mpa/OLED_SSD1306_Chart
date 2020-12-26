@@ -21,6 +21,11 @@ private:
     double _dig;                
     char _mode;                 //Plot mode: single or double
     char _point_geometry[2];    //Point geometry
+    bool _yLabelsVisible;       //Determines if the y labels should be shown
+    char* _yLabelLo;            //Label of the lower y value
+    char *_yLabelHi;            //Label of the highert y value
+    double _xDrawingOffset;     //Used to draw the char after the labels are applied
+
 public:
 
     //Ctors
@@ -29,6 +34,7 @@ public:
         _mode = SINGLE_PLOT_MODE;
         _point_geometry[0] = POINT_GEOMETRY_NONE;
         _point_geometry[1] = POINT_GEOMETRY_NONE;
+        _yLabelsVisible = false;
     }
 
     OLED_SSD1306_Chart(uint8_t w, uint8_t h, TwoWire *twi, int8_t rst_pin=-1,
@@ -37,6 +43,7 @@ public:
             _mode = SINGLE_PLOT_MODE;
             _point_geometry[0] = POINT_GEOMETRY_NONE;
             _point_geometry[1] = POINT_GEOMETRY_NONE;
+            _yLabelsVisible = false;
         }
 
     OLED_SSD1306_Chart(uint8_t w, uint8_t h, int8_t mosi_pin, int8_t sclk_pin,
@@ -45,6 +52,7 @@ public:
             _mode = SINGLE_PLOT_MODE;
             _point_geometry[0] = POINT_GEOMETRY_NONE;
             _point_geometry[1] = POINT_GEOMETRY_NONE;
+            _yLabelsVisible = false;
         }
 
     OLED_SSD1306_Chart(uint8_t w, uint8_t h, SPIClass *spi,
@@ -53,15 +61,19 @@ public:
             _mode = SINGLE_PLOT_MODE;
             _point_geometry[0] = POINT_GEOMETRY_NONE;
             _point_geometry[1] = POINT_GEOMETRY_NONE;
+            _yLabelsVisible = false;
         }
 
     void setPlotMode(char mode);
     void setChartCoordinates(double x, double y);
     void setChartWidthAndHeight(double w, double h);
     void setYLimits(double ylo, double yhi, uint8_t chart = 0);
+    void setYLimitLabels(char* loLabel, char* hiLabel);
+    void setYLabelsVisible(bool yLabelsVisible);
     void setPointGeometry(char pointGeometry, uint8_t chart = 0); 
     void setXIncrement(double xinc);
     void setAxisDivisionsInc(double xinc, double yinc);
+    
 
     void drawChart();
     bool updateChart(double firstValue, double secondValue = 0);
