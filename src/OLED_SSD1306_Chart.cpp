@@ -15,32 +15,27 @@ void OLED_SSD1306_Chart::drawChart()
     _oy[1] = _gy + _h / 2;
     _x = _gx;
     _xDrawingOffset = 0;
-    
 
-    if(_yLabelsVisible){
+    if (_yLabelsVisible)
+    {
         int16_t x, y;
         uint16_t w, h;
 
         setTextSize(1);
         setTextColor(WHITE);
 
-
         getTextBounds(_yLabelHi, _gx + 5, _gy + 5 - _h, &x, &y, &w, &h);
         _xDrawingOffset = w;
 
         // high label
-        setCursor(_gx, _gy  - _h);
+        setCursor(_gx, _gy - _h);
         write(_yLabelHi);
 
         getTextBounds(_yLabelLo, _gx + 5, _gy - 5, &x, &y, &w, &h);
 
         // low label
-        setCursor(_gx, _gy - (h/2));
+        setCursor(_gx, _gy - (h / 2));
         write(_yLabelLo);
-
-        
-
-        
 
         if (w > _xDrawingOffset)
         {
@@ -48,18 +43,15 @@ void OLED_SSD1306_Chart::drawChart()
         }
 
         // compensation for the y axis tick lines
-        _xDrawingOffset+=4;
+        _xDrawingOffset += 4;
     }
-
-    
-    
 
     for (i = _gy; i <= _gy + _h; i += _yincdiv)
     {
         temp = (i - _gy) * (_gy - _h - _gy) / (_h) + _gy;
         if (i == _gy)
         {
-            drawFastHLine(_gx - 3 + _xDrawingOffset, temp, _w + 3 -_xDrawingOffset, WHITE);
+            drawFastHLine(_gx - 3 + _xDrawingOffset, temp, _w + 3 - _xDrawingOffset, WHITE);
         }
         else
         {
@@ -79,8 +71,6 @@ void OLED_SSD1306_Chart::drawChart()
             drawFastVLine(temp, _gy, 3, WHITE);
         }
     }
-
-    
 }
 
 void OLED_SSD1306_Chart::setPlotMode(char mode)
@@ -97,7 +87,6 @@ void OLED_SSD1306_Chart::setYLimits(double ylo, double yhi, uint8_t chart)
         _yhi[chart] = yhi;
     }
 }
-
 
 void OLED_SSD1306_Chart::setYLimitLabels(char *loLabel, char *hiLabel)
 {
@@ -172,7 +161,7 @@ bool OLED_SSD1306_Chart::updateChart(double firstValue, double secondValue)
         drawLine(_ox[0] + _xDrawingOffset, _oy[0] - 1, _x + _xDrawingOffset, y - 1, WHITE);
 
         drawLine(_ox[1] + _xDrawingOffset, _oy[1], _x + _xDrawingOffset, secondY, WHITE);
-        drawLine(_ox[1] + _xDrawingOffset, _oy[1] - 1, _x +_xDrawingOffset, secondY - 1, WHITE);
+        drawLine(_ox[1] + _xDrawingOffset, _oy[1] - 1, _x + _xDrawingOffset, secondY - 1, WHITE);
 
         _ox[0] = _x;
         _oy[0] = y;
