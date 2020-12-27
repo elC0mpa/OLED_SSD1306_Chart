@@ -75,7 +75,10 @@ void OLED_SSD1306_Chart::drawChart()
 
             //Chart 0
             getTextBounds(_yLabelHi[0], _gx + 5, _gy + 5 - _h, &x, &y, &w, &h);
-            _xDrawingOffset = w;
+            if (w > _xDrawingOffset)
+            {
+                _xDrawingOffset = w;
+            }
 
             // high label
             setCursor(_gx, _gy - _h / 2 + (h / 2));
