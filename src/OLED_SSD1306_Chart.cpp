@@ -18,32 +18,83 @@ void OLED_SSD1306_Chart::drawChart()
 
     if (_yLabelsVisible)
     {
-        int16_t x, y;
-        uint16_t w, h;
-
-        setTextSize(1);
-        setTextColor(WHITE);
-
-        getTextBounds(_yLabelHi, _gx + 5, _gy + 5 - _h, &x, &y, &w, &h);
-        _xDrawingOffset = w;
-
-        // high label
-        setCursor(_gx, _gy - _h);
-        write(_yLabelHi);
-
-        getTextBounds(_yLabelLo, _gx + 5, _gy - 5, &x, &y, &w, &h);
-
-        // low label
-        setCursor(_gx, _gy - (h / 2));
-        write(_yLabelLo);
-
-        if (w > _xDrawingOffset)
+        if (_mode == SINGLE_PLOT_MODE)
         {
-            _xDrawingOffset = w;
-        }
+            int16_t x, y;
+            uint16_t w, h;
 
-        // compensation for the y axis tick lines
-        _xDrawingOffset += 4;
+            setTextSize(1);
+            setTextColor(WHITE);
+
+            getTextBounds(_yLabelHi[0], _gx + 5, _gy + 5 - _h, &x, &y, &w, &h);
+            _xDrawingOffset = w;
+
+            // high label
+            setCursor(_gx, _gy - _h);
+            write(_yLabelHi[0]);
+
+            getTextBounds(_yLabelLo[0], _gx + 5, _gy - 5, &x, &y, &w, &h);
+
+            // low label
+            setCursor(_gx, _gy - (h / 2));
+            write(_yLabelLo[0]);
+
+            if (w > _xDrawingOffset)
+            {
+                _xDrawingOffset = w;
+            }
+
+            // compensation for the y axis tick lines
+            _xDrawingOffset += 4;
+        }
+        else if (_mode == DOUBLE_PLOT_MODE)
+        {
+            int16_t x, y;
+            uint16_t w, h;
+
+            setTextSize(1);
+            setTextColor(WHITE);
+            //Chart 1
+            getTextBounds(_yLabelHi[1], _gx + 5, _gy + 5 - _h, &x, &y, &w, &h);
+            _xDrawingOffset = w;
+
+            // high label
+            setCursor(_gx, _gy - _h);
+            write(_yLabelHi[1]);
+
+            getTextBounds(_yLabelLo[1], _gx + 5, _gy - 5, &x, &y, &w, &h);
+
+            // low label
+            setCursor(_gx, _gy - _h / 2 - (h / 2));
+            write(_yLabelLo[1]);
+
+            if (w > _xDrawingOffset)
+            {
+                _xDrawingOffset = w;
+            }
+
+            //Chart 0
+            getTextBounds(_yLabelHi[0], _gx + 5, _gy + 5 - _h, &x, &y, &w, &h);
+            _xDrawingOffset = w;
+
+            // high label
+            setCursor(_gx, _gy - _h / 2 + (h / 2));
+            write(_yLabelHi[0]);
+
+            getTextBounds(_yLabelLo[0], _gx + 5, _gy - 5, &x, &y, &w, &h);
+
+            // low label
+            setCursor(_gx, _gy - (h / 2));
+            write(_yLabelLo[0]);
+
+            if (w > _xDrawingOffset)
+            {
+                _xDrawingOffset = w;
+            }
+
+            // compensation for the y axis tick lines
+            _xDrawingOffset += 4;
+        }
     }
 
     for (i = _gy; i <= _gy + _h; i += _yincdiv)
@@ -88,10 +139,13 @@ void OLED_SSD1306_Chart::setYLimits(double ylo, double yhi, uint8_t chart)
     }
 }
 
-void OLED_SSD1306_Chart::setYLimitLabels(char *loLabel, char *hiLabel)
+void OLED_SSD1306_Chart::setYLimitLabels(char *loLabel, char *hiLabel, uint8_t chart)
 {
-    _yLabelLo = loLabel;
-    _yLabelHi = hiLabel;
+    if (chart == 0 || chart == 1)
+    {
+        _yLabelLo[chart] = loLabel;
+        _yLabelHi[chart] = hiLabel;
+    }
 }
 
 void OLED_SSD1306_Chart::setYLabelsVisible(bool yLabelsVisible)
