@@ -23,7 +23,7 @@ private:
     char _point_geometry[2];    //Point geometry
     bool _yLabelsVisible;       //Determines if the y labels should be shown
     char* _yLabelLo;            //Label of the lower y value
-    char *_yLabelHi;            //Label of the highert y value
+    char *_yLabelHi;            //Label of the higher y value
     double _xDrawingOffset;     //Used to draw the char after the labels are applied
 
 public:
