@@ -29,7 +29,7 @@ void OLED_SSD1306_Chart::drawChart()
         _xDrawingOffset = w;
 
         // high label
-        setCursor(_gx, _gy  - _h  -(h/2));
+        setCursor(_gx, _gy  - _h);
         write(_yLabelHi);
 
         getTextBounds(_yLabelLo, _gx + 5, _gy - 5, &x, &y, &w, &h);
