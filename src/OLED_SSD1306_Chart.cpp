@@ -12,7 +12,7 @@ void OLED_SSD1306_Chart::drawChart()
     _ox[0] = _gx;
     _ox[1] = _gx;
     _oy[0] = _gy;
-    _oy[1] = _gy + _h / 2;
+    _oy[1] = _gy - _h / 2;
     _x = _gx;
     _xDrawingOffset = 0;
 
