@@ -42,6 +42,7 @@ void setup()
   display.setYLimitLabels("0", "100", 1);
   display.setAxisDivisionsInc(12, 6); //Each 12 px a division will be painted in X axis and each 6px in Y axis
   display.setYLabelsVisible(true);
+  display.setPointGeometry(POINT_GEOMETRY_CIRCLE, 0);
   display.setPlotMode(DOUBLE_PLOT_MODE); //Set double plot mode
   display.drawChart();                   //Update the buffer to draw the cartesian chart
   display.display();
