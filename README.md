@@ -149,6 +149,7 @@ The function `updateChart` is used to add new Y values to the chart. When workin
 
 - **v1.0.0 (2020/01/05)** - library initial release
 - **v1.1.0 (2020/03/21)** - added implementation for POINT_GEOMETRY_CIRCLE
+- **v1.2.0 (2020/12/27)** - posibility to set Y axis labels in both plot modes. Thanks to [@felixkosmalla](https://github.com/felixkosmalla)
 
 ## Examples
 
