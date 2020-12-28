@@ -93,9 +93,9 @@ The function `setYLabelsVisible` defines if the Y axis labels should be displaye
 
 ```c++
 // Sets the textual labels for the y axis limits.
-void setYLimitLabels(char* loLabel, char* hiLabel)
+void setYLimitLabels(char* loLabel, char* hiLabel, uint8_t chart = 0;)
 ```
-The function `setYLimitLabels` sets the textual labels that will be displayed at the upper and lower limits defined by `setYLimits`. The labels will only be displayed if their visibility is enabled via `setYLabelsVisible(true)`.
+The function `setYLimitLabels` sets the textual labels that will be displayed at the upper and lower of each chart. The labels will only be displayed if their visibility is enabled via `setYLabelsVisible(true)`.
 
 
 
