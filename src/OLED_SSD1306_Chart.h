@@ -11,20 +11,20 @@
 class OLED_SSD1306_Chart : public Adafruit_SSD1306
 {
 private:
-    double _ox[2], _oy[2];     //Previous point coordinates
-    double _gx, _gy;           //Chart lower left coordinates
-    double _w, _h;             //Chart width and height
-    double _ylo[2], _yhi[2];   //Y axis Min and max values
-    double _xinc;              //X coordinate increment between values
-    double _x;                 //Actual point x coordinate
-    double _xincdiv, _yincdiv; //X and Y axis distance between division
+    double _previous_x_coordinate[2], _previous_y_coordinate[2];     //Previous point coordinates
+    double _x_lower_left_coordinate, _y_lower_left_coordinate;           //Chart lower left coordinates
+    double _chart_width, _chart_height;             //Chart width and height
+    double _y_min_values[2], _y_max_values[2];   //Y axis Min and max values
+    double _x_inc;              //X coordinate increment between values
+    double _actual_x_coordinate;                 //Actual point x coordinate
+    double _xinc_div, _yinc_div; //X and Y axis distance between division
     double _dig;
     char _mode;              //Plot mode: single or double
     char _point_geometry[2]; //Point geometry
-    bool _yLabelsVisible;    //Determines if the y labels should be shown
-    char *_yLabelLo[2];      //Labels of the lower y value
-    char *_yLabelHi[2];      //Labels of the higher y value
-    double _xDrawingOffset;  //Used to draw the char after the labels are applied
+    bool _y_labels_visible;    //Determines if the y labels should be shown
+    char *_y_min_label[2];      //Labels of the lower y value
+    char *_y_max_label[2];      //Labels of the higher y value
+    double _x_drawing_offset;  //Used to draw the char after the labels are applied
 
 public:
     //Ctors
@@ -33,11 +33,11 @@ public:
         _mode = SINGLE_PLOT_MODE;
         _point_geometry[0] = POINT_GEOMETRY_NONE;
         _point_geometry[1] = POINT_GEOMETRY_NONE;
-        _yLabelsVisible = false;
-        _yLabelLo[0] = "";
-        _yLabelLo[1] = "";
-        _yLabelHi[0] = "";
-        _yLabelHi[1] = "";
+        _y_labels_visible = false;
+        _y_min_label[0] = "";
+        _y_min_label[1] = "";
+        _y_max_label[0] = "";
+        _y_max_label[1] = "";
     }
 
     OLED_SSD1306_Chart(uint8_t w, uint8_t h, TwoWire *twi, int8_t rst_pin = -1,
@@ -46,11 +46,11 @@ public:
         _mode = SINGLE_PLOT_MODE;
         _point_geometry[0] = POINT_GEOMETRY_NONE;
         _point_geometry[1] = POINT_GEOMETRY_NONE;
-        _yLabelsVisible = false;
-        _yLabelLo[0] = "";
-        _yLabelLo[1] = "";
-        _yLabelHi[0] = "";
-        _yLabelHi[1] = "";
+        _y_labels_visible = false;
+        _y_min_label[0] = "";
+        _y_min_label[1] = "";
+        _y_max_label[0] = "";
+        _y_max_label[1] = "";
     }
 
     OLED_SSD1306_Chart(uint8_t w, uint8_t h, int8_t mosi_pin, int8_t sclk_pin,
@@ -59,11 +59,11 @@ public:
         _mode = SINGLE_PLOT_MODE;
         _point_geometry[0] = POINT_GEOMETRY_NONE;
         _point_geometry[1] = POINT_GEOMETRY_NONE;
-        _yLabelsVisible = false;
-        _yLabelLo[0] = "";
-        _yLabelLo[1] = "";
-        _yLabelHi[0] = "";
-        _yLabelHi[1] = "";
+        _y_labels_visible = false;
+        _y_min_label[0] = "";
+        _y_min_label[1] = "";
+        _y_max_label[0] = "";
+        _y_max_label[1] = "";
     }
 
     OLED_SSD1306_Chart(uint8_t w, uint8_t h, SPIClass *spi,
@@ -72,11 +72,11 @@ public:
         _mode = SINGLE_PLOT_MODE;
         _point_geometry[0] = POINT_GEOMETRY_NONE;
         _point_geometry[1] = POINT_GEOMETRY_NONE;
-        _yLabelsVisible = false;
-        _yLabelLo[0] = "";
-        _yLabelLo[1] = "";
-        _yLabelHi[0] = "";
-        _yLabelHi[1] = "";
+        _y_labels_visible = false;
+        _y_min_label[0] = "";
+        _y_min_label[1] = "";
+        _y_max_label[0] = "";
+        _y_max_label[1] = "";
     }
 
     void setPlotMode(char mode);
