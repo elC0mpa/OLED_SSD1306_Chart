@@ -192,6 +192,12 @@ bool OLED_SSD1306_Chart::updateChart(double firstValue, double secondValue)
 
     _actual_x_coordinate += _x_inc;
 
+    if (firstValue < _y_min_values[0])
+        firstValue = _y_min_values[0];
+
+    if (firstValue > _y_max_values[0])
+        firstValue = _y_max_values[0];
+
     if (_mode == SINGLE_PLOT_MODE)
     {
         double y = (firstValue - _y_min_values[0]) * (_y_lower_left_coordinate - _chart_height - _y_lower_left_coordinate) / (_y_max_values[0] - _y_min_values[0]) + _y_lower_left_coordinate;
@@ -210,6 +216,11 @@ bool OLED_SSD1306_Chart::updateChart(double firstValue, double secondValue)
 
     else
     {
+        if (secondValue < _y_min_values[1])
+            secondValue = _y_min_values[1];
+
+        if (secondValue > _y_max_values[1])
+            secondValue = _y_max_values[1];
         auto semiHeight = _chart_height / 2;
         double y = (firstValue - _y_min_values[0]) * (-semiHeight) / (_y_max_values[0] - _y_min_values[0]) + _y_lower_left_coordinate;
         double secondY = (secondValue - _y_min_values[1]) * (-semiHeight) / (_y_max_values[0] - _y_min_values[0]) + _y_lower_left_coordinate - semiHeight;
