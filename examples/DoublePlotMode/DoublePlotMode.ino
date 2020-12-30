@@ -7,7 +7,7 @@
 
 #include <Arduino.h>
 #include <OLED_SSD1306_Chart.h>
-#include <Adafruit_I2CDevice.h> //Include this to avoid compile errors in Platformio
+#include <Adafruit_I2CDevice.h>
 
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
@@ -21,6 +21,8 @@
 #define SCL_PIN D2
 
 OLED_SSD1306_Chart display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+bool mid_line_visible = false;
 
 void setup()
 {
@@ -42,9 +44,11 @@ void setup()
   display.setYLimitLabels("0", "100", 1);
   display.setAxisDivisionsInc(12, 6); //Each 12 px a division will be painted in X axis and each 6px in Y axis
   display.setYLabelsVisible(true);
-  display.setPointGeometry(POINT_GEOMETRY_CIRCLE, 0);
   display.setPlotMode(DOUBLE_PLOT_MODE); //Set double plot mode
-  display.drawChart();                   //Update the buffer to draw the cartesian chart
+  display.setMidLineVisible(mid_line_visible);
+  display.setLineThickness(LIGHT_LINE);
+  display.setLineThickness(NORMAL_LINE, 1);
+  display.drawChart(); //Update the buffer to draw the cartesian chart
   display.display();
 }
 
@@ -56,6 +60,8 @@ void loop()
   if (!display.updateChart(value0, value1)) //Value between Ymin and Ymax will be added to chart
   {
     display.clearDisplay(); //If chart is full, it is drawn again
+    mid_line_visible = !mid_line_visible;
+    display.setMidLineVisible(mid_line_visible);
     display.drawChart();
   }
   delay(100);
