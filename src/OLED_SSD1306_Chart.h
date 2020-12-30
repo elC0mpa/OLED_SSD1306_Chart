@@ -7,25 +7,29 @@
 #define POINT_GEOMETRY_CIRCLE 3
 #define POINT_GEOMETRY_SQUARE 4
 #define POINT_GEOMETRY_TRIANGLE 5
+#define LIGHT_LINE 6
+#define NORMAL_LINE 7
 
 class OLED_SSD1306_Chart : public Adafruit_SSD1306
 {
 private:
-    double _previous_x_coordinate[2], _previous_y_coordinate[2];     //Previous point coordinates
-    double _x_lower_left_coordinate, _y_lower_left_coordinate;           //Chart lower left coordinates
-    double _chart_width, _chart_height;             //Chart width and height
-    double _y_min_values[2], _y_max_values[2];   //Y axis Min and max values
-    double _x_inc;              //X coordinate increment between values
-    double _actual_x_coordinate;                 //Actual point x coordinate
-    double _xinc_div, _yinc_div; //X and Y axis distance between division
+    double _previous_x_coordinate[2], _previous_y_coordinate[2]; //Previous point coordinates
+    double _x_lower_left_coordinate, _y_lower_left_coordinate;   //Chart lower left coordinates
+    double _chart_width, _chart_height;                          //Chart width and height
+    double _y_min_values[2], _y_max_values[2];                   //Y axis Min and max values
+    double _x_inc;                                               //X coordinate increment between values
+    double _actual_x_coordinate;                                 //Actual point x coordinate
+    double _xinc_div, _yinc_div;                                 //X and Y axis distance between division
     double _dig;
-    char _mode;              //Plot mode: single or double
-    char _point_geometry[2]; //Point geometry
-    bool _y_labels_visible;    //Determines if the y labels should be shown
-    char *_y_min_label[2];      //Labels of the lower y value
-    char *_y_max_label[2];      //Labels of the higher y value
-    double _x_drawing_offset;  //Used to draw the char after the labels are applied
-    bool _mid_line_visible;    //Determines if the mid line should be shown in Double plot mode
+    char _mode;               //Plot mode: single or double
+    char _point_geometry[2];  //Point geometry
+    bool _y_labels_visible;   //Determines if the y labels should be shown
+    char *_y_min_label[2];    //Labels of the lower y value
+    char *_y_max_label[2];    //Labels of the higher y value
+    double _x_drawing_offset; //Used to draw the char after the labels are applied
+    bool _mid_line_visible;   //Determines if the mid line should be shown in Double plot mode
+    char _lines_thickness[2]; //Line thickness
+    void _drawLine(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color, uint8_t thickness);
 
 public:
     //Ctors
@@ -36,6 +40,8 @@ public:
         _point_geometry[1] = POINT_GEOMETRY_NONE;
         _y_labels_visible = false;
         _mid_line_visible = true;
+        _lines_thickness[0] = NORMAL_LINE;
+        _lines_thickness[1] = NORMAL_LINE;
         _y_min_label[0] = "";
         _y_min_label[1] = "";
         _y_max_label[0] = "";
@@ -50,6 +56,8 @@ public:
         _point_geometry[1] = POINT_GEOMETRY_NONE;
         _y_labels_visible = false;
         _mid_line_visible = true;
+        _lines_thickness[0] = NORMAL_LINE;
+        _lines_thickness[1] = NORMAL_LINE;
         _y_min_label[0] = "";
         _y_min_label[1] = "";
         _y_max_label[0] = "";
@@ -64,6 +72,8 @@ public:
         _point_geometry[1] = POINT_GEOMETRY_NONE;
         _y_labels_visible = false;
         _mid_line_visible = true;
+        _lines_thickness[0] = NORMAL_LINE;
+        _lines_thickness[1] = NORMAL_LINE;
         _y_min_label[0] = "";
         _y_min_label[1] = "";
         _y_max_label[0] = "";
@@ -78,6 +88,8 @@ public:
         _point_geometry[1] = POINT_GEOMETRY_NONE;
         _y_labels_visible = false;
         _mid_line_visible = true;
+        _lines_thickness[0] = NORMAL_LINE;
+        _lines_thickness[1] = NORMAL_LINE;
         _y_min_label[0] = "";
         _y_min_label[1] = "";
         _y_max_label[0] = "";
@@ -94,6 +106,7 @@ public:
     void setXIncrement(double xinc);
     void setAxisDivisionsInc(double xinc, double yinc);
     void setMidLineVisible(bool lineVisible);
+    void setLineThickness(char thickness, uint8_t chart = 0);
 
     void drawChart();
     bool updateChart(double firstValue, double secondValue = 0);
