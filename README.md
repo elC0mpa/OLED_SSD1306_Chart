@@ -127,6 +127,28 @@ The function `setPlotMode` is used to configure if the chart will draw one or tw
 
 These #define are used to pass as parameter to this function.
 
+```c++
+// Set mid line visibility
+display.setMidLineVisible(bool lineVisible);
+```
+
+The function `setMidLineVisible` is used to show and hide a mid line between charts only in `DOUBLE_PLOT_MODE`
+
+```c++
+// Set plot mode
+display.setLineThickness(char thickness, uint8_t chart = 0);
+```
+
+The function `setLineThickness` is used to set thickness of each chart
+
+```c++
+// Set plot mode defines
+#define LIGHT_LINE 6
+#define NORMAL_LINE 7
+```
+
+These #define are used to pass as parameter to this function.
+
 ### **Drawing chart**
 
 ```c++
@@ -147,9 +169,17 @@ The function `updateChart` is used to add new Y values to the chart. When workin
 
 ## Changelog
 
-- **v1.0.0 (2020/01/05)** - library initial release
-- **v1.1.0 (2020/03/21)** - added implementation for POINT_GEOMETRY_CIRCLE
-- **v1.2.0 (2020/12/27)** - posibility to set Y axis labels in both plot modes. Thanks to [@felixkosmalla](https://github.com/felixkosmalla)
+- **v1.0.0 (2020/01/05)**
+  - library initial release
+- **v1.1.0 (2020/03/21)**
+  - added implementation for POINT_GEOMETRY_CIRCLE
+- **v1.2.0 (2020/12/27)**
+  - posibility to set Y axis labels in both plot modes. Thanks to [@felixkosmalla](https://github.com/felixkosmalla)
+- **v1.3.0 (2020/12/30)**
+  - fixed wrong behavior when value is not between min and max values
+  - added implementation for `setMidLineVisible`
+  - added implementation for `setLineThickness`
+  - examples updated
 
 ## Examples
 
