@@ -22,6 +22,8 @@ setAxisDivisionsInc	KEYWORD2
 setPlotMode		KEYWORD2
 drawChart		KEYWORD2
 updateChart		KEYWORD2
+setLineThickness KEYWORD2
+setMidLineVisible KEYWORD2
 
 #######################################
 # Instances (KEYWORD2)
