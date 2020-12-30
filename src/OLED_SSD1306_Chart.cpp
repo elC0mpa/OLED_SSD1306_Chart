@@ -150,6 +150,14 @@ void OLED_SSD1306_Chart::setYLimits(double ylo, double yhi, uint8_t chart)
     }
 }
 
+void OLED_SSD1306_Chart::setLineThickness(char thickness, uint8_t chart)
+{
+    if (chart == 0 || chart == 1)
+    {
+        _lines_thickness[chart] = thickness;
+    }
+}
+
 void OLED_SSD1306_Chart::setYLimitLabels(char *loLabel, char *hiLabel, uint8_t chart)
 {
     if (chart == 0 || chart == 1)
@@ -198,6 +206,23 @@ void OLED_SSD1306_Chart::setXIncrement(double xinc)
     _x_inc = xinc;
 }
 
+void OLED_SSD1306_Chart::_drawLine(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t color, uint8_t thickness)
+{
+    char linesToDraw = 0;
+    if (thickness == LIGHT_LINE)
+    {
+        linesToDraw = 2;
+        for (size_t i = 0; i < linesToDraw; i++)
+            drawLine(x0, y0 - i, x1, y1, color);
+    }
+    else if (thickness == NORMAL_LINE)
+    {
+        linesToDraw = 5;
+        for (size_t i = 0; i < linesToDraw; i++)
+            drawLine(x0, y0 + 2 - i, x1, y1, color);
+    }
+}
+
 bool OLED_SSD1306_Chart::updateChart(double firstValue, double secondValue)
 {
     if (_actual_x_coordinate >= _x_lower_left_coordinate + _chart_width - _x_drawing_offset)
@@ -214,8 +239,8 @@ bool OLED_SSD1306_Chart::updateChart(double firstValue, double secondValue)
     if (_mode == SINGLE_PLOT_MODE)
     {
         double y = (firstValue - _y_min_values[0]) * (_y_lower_left_coordinate - _chart_height - _y_lower_left_coordinate) / (_y_max_values[0] - _y_min_values[0]) + _y_lower_left_coordinate;
-        drawLine(_previous_x_coordinate[0] + _x_drawing_offset, _previous_y_coordinate[0], _actual_x_coordinate + _x_drawing_offset, y, WHITE);
-        drawLine(_previous_x_coordinate[0] + _x_drawing_offset, _previous_y_coordinate[0] - 1, _actual_x_coordinate + _x_drawing_offset, y - 1, WHITE);
+        char linesToDraw = 0;
+        _drawLine(_previous_x_coordinate[0] + _x_drawing_offset, _previous_y_coordinate[0], _actual_x_coordinate + _x_drawing_offset, y, WHITE, _lines_thickness[0]);
 
         _previous_x_coordinate[0] = _actual_x_coordinate;
         _previous_y_coordinate[0] = y;
@@ -238,11 +263,8 @@ bool OLED_SSD1306_Chart::updateChart(double firstValue, double secondValue)
         double y = (firstValue - _y_min_values[0]) * (-semiHeight) / (_y_max_values[0] - _y_min_values[0]) + _y_lower_left_coordinate;
         double secondY = (secondValue - _y_min_values[1]) * (-semiHeight) / (_y_max_values[0] - _y_min_values[0]) + _y_lower_left_coordinate - semiHeight;
 
-        drawLine(_previous_x_coordinate[0] + _x_drawing_offset, _previous_y_coordinate[0], _actual_x_coordinate + _x_drawing_offset, y, WHITE);
-        drawLine(_previous_x_coordinate[0] + _x_drawing_offset, _previous_y_coordinate[0] - 1, _actual_x_coordinate + _x_drawing_offset, y - 1, WHITE);
-
-        drawLine(_previous_x_coordinate[1] + _x_drawing_offset, _previous_y_coordinate[1], _actual_x_coordinate + _x_drawing_offset, secondY, WHITE);
-        drawLine(_previous_x_coordinate[1] + _x_drawing_offset, _previous_y_coordinate[1] - 1, _actual_x_coordinate + _x_drawing_offset, secondY - 1, WHITE);
+        _drawLine(_previous_x_coordinate[0] + _x_drawing_offset, _previous_y_coordinate[0], _actual_x_coordinate + _x_drawing_offset, y, WHITE, _lines_thickness[0]);
+        _drawLine(_previous_x_coordinate[1] + _x_drawing_offset, _previous_y_coordinate[1], _actual_x_coordinate + _x_drawing_offset, secondY, WHITE, _lines_thickness[1]);
 
         _previous_x_coordinate[0] = _actual_x_coordinate;
         _previous_y_coordinate[0] = y;
