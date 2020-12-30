@@ -25,6 +25,7 @@ private:
     char *_y_min_label[2];      //Labels of the lower y value
     char *_y_max_label[2];      //Labels of the higher y value
     double _x_drawing_offset;  //Used to draw the char after the labels are applied
+    bool _mid_line_visible;    //Determines if the mid line should be shown in Double plot mode
 
 public:
     //Ctors
@@ -34,6 +35,7 @@ public:
         _point_geometry[0] = POINT_GEOMETRY_NONE;
         _point_geometry[1] = POINT_GEOMETRY_NONE;
         _y_labels_visible = false;
+        _mid_line_visible = true;
         _y_min_label[0] = "";
         _y_min_label[1] = "";
         _y_max_label[0] = "";
@@ -47,6 +49,7 @@ public:
         _point_geometry[0] = POINT_GEOMETRY_NONE;
         _point_geometry[1] = POINT_GEOMETRY_NONE;
         _y_labels_visible = false;
+        _mid_line_visible = true;
         _y_min_label[0] = "";
         _y_min_label[1] = "";
         _y_max_label[0] = "";
@@ -60,6 +63,7 @@ public:
         _point_geometry[0] = POINT_GEOMETRY_NONE;
         _point_geometry[1] = POINT_GEOMETRY_NONE;
         _y_labels_visible = false;
+        _mid_line_visible = true;
         _y_min_label[0] = "";
         _y_min_label[1] = "";
         _y_max_label[0] = "";
@@ -73,6 +77,7 @@ public:
         _point_geometry[0] = POINT_GEOMETRY_NONE;
         _point_geometry[1] = POINT_GEOMETRY_NONE;
         _y_labels_visible = false;
+        _mid_line_visible = true;
         _y_min_label[0] = "";
         _y_min_label[1] = "";
         _y_max_label[0] = "";
@@ -88,6 +93,7 @@ public:
     void setPointGeometry(char pointGeometry, uint8_t chart = 0);
     void setXIncrement(double xinc);
     void setAxisDivisionsInc(double xinc, double yinc);
+    void setMidLineVisible(bool lineVisible);
 
     void drawChart();
     bool updateChart(double firstValue, double secondValue = 0);

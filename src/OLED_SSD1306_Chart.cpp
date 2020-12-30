@@ -125,6 +125,14 @@ void OLED_SSD1306_Chart::drawChart()
             drawFastVLine(temp, _y_lower_left_coordinate, 3, WHITE);
         }
     }
+    if (_mid_line_visible && _mode == DOUBLE_PLOT_MODE)
+    {
+        drawFastHLine(_x_lower_left_coordinate + _x_drawing_offset, _y_lower_left_coordinate - _chart_height / 2, _chart_width - _x_drawing_offset, WHITE);
+        for (i = 0; i <= _chart_width - _x_drawing_offset; i += _xinc_div)
+        {
+            drawFastVLine(i + _x_lower_left_coordinate + _x_drawing_offset, _y_lower_left_coordinate - _chart_height / 2, 3, WHITE);
+        }
+    }
 }
 
 void OLED_SSD1306_Chart::setPlotMode(char mode)
@@ -154,6 +162,11 @@ void OLED_SSD1306_Chart::setYLimitLabels(char *loLabel, char *hiLabel, uint8_t c
 void OLED_SSD1306_Chart::setYLabelsVisible(bool yLabelsVisible)
 {
     _y_labels_visible = yLabelsVisible;
+}
+
+void OLED_SSD1306_Chart::setMidLineVisible(bool lineVisible)
+{
+    _mid_line_visible = lineVisible;
 }
 
 void OLED_SSD1306_Chart::setPointGeometry(char pointGeometry, uint8_t chart)
