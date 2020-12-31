@@ -6,7 +6,7 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-Adafruit_SSD1306_Chart	KEYWORD1
+OLED_SSD1306_Chart	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -16,10 +16,14 @@ setChartCoordinates	KEYWORD2
 setChartWidthAndHeight	KEYWORD2
 setXIncrement		KEYWORD2
 setYLimits		KEYWORD2
+setYLimitLabels KEYWORD2
+setYLabelsVisible KEYWORD2
 setAxisDivisionsInc	KEYWORD2
 setPlotMode		KEYWORD2
 drawChart		KEYWORD2
 updateChart		KEYWORD2
+setLineThickness KEYWORD2
+setMidLineVisible KEYWORD2
 
 #######################################
 # Instances (KEYWORD2)
