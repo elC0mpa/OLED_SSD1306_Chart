@@ -261,7 +261,7 @@ bool OLED_SSD1306_Chart::updateChart(double firstValue, double secondValue)
             secondValue = _y_max_values[1];
         auto semiHeight = _chart_height / 2;
         double y = (firstValue - _y_min_values[0]) * (-semiHeight) / (_y_max_values[0] - _y_min_values[0]) + _y_lower_left_coordinate;
-        double secondY = (secondValue - _y_min_values[1]) * (-semiHeight) / (_y_max_values[0] - _y_min_values[0]) + _y_lower_left_coordinate - semiHeight;
+        double secondY = (secondValue - _y_min_values[1]) * (-semiHeight) / (_y_max_values[1] - _y_min_values[1]) + _y_lower_left_coordinate - semiHeight;
 
         _drawLine(_previous_x_coordinate[0] + _x_drawing_offset, _previous_y_coordinate[0], _actual_x_coordinate + _x_drawing_offset, y, WHITE, _lines_thickness[0]);
         _drawLine(_previous_x_coordinate[1] + _x_drawing_offset, _previous_y_coordinate[1], _actual_x_coordinate + _x_drawing_offset, secondY, WHITE, _lines_thickness[1]);
