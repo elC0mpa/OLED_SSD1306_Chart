@@ -180,6 +180,8 @@ The function `updateChart` is used to add new Y values to the chart. When workin
   - added implementation for `setMidLineVisible`
   - added implementation for `setLineThickness`
   - examples updated
+- **v1.3.1 (2020/04/29)**
+  - solved scale problem in second chart. Thanks to [@lkz0ne](https://github.com/lkz0ne)
 
 ## Examples
 
